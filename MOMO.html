@@ -1160,8 +1160,8 @@
           return;
         }
         
-        // Gunakan password yang disimpan; kredensial demo telah dihapus untuk publikasi
-        const correctPassword = userPasswords[nim] || 'REDACTED_DEMO_PASSWORD';
+        // Gunakan password yang disimpan, atau default '1LANGKAHDIDEPAN'
+        const correctPassword = userPasswords[nim] || '1LANGKAHDIDEPAN';
         if (password !== correctPassword) {
           showAlert('❌ Password salah!', 'danger');
           return;
@@ -1179,8 +1179,8 @@
           return;
         }
         
-        // Gunakan password yang disimpan; kredensial demo telah dihapus untuk publikasi
-        const correctPassword = userPasswords[nim] || 'REDACTED_DEMO_PASSWORD';
+        // Gunakan password yang disimpan, atau default '1LANGKAHDIDEPAN'
+        const correctPassword = userPasswords[nim] || '1LANGKAHDIDEPAN';
         if (password !== correctPassword) {
           showAlert('❌ Password salah!', 'danger');
           return;
@@ -1191,8 +1191,8 @@
         showDashboard();
       } else if (role === 'admin') {
         // Admin hanya bisa login dengan credentials default
-        // Admin login: kredensial demo dihapus — ganti di pengaturan lokal sebelum produksi
-        if (nim !== 'wawa' || password !== 'REDACTED_DEMO_PASSWORD') {
+        const adminPassword = userPasswords['wawa'] || 'wawaalpat';
+        if (nim !== 'wawa' || password !== adminPassword) {
           showAlert('❌ Username atau password salah!', 'danger');
           return;
         }
@@ -1852,7 +1852,7 @@
       
       const userKey = app.currentUser.nim || app.currentUser.username;
       const userPasswords = JSON.parse(localStorage.getItem('userPasswords') || '{}');
-      const currentPassword = userPasswords[userKey] || 'REDACTED_DEMO_PASSWORD';
+      const currentPassword = userPasswords[userKey] || '1LANGKAHDIDEPAN';
       
       // Validasi password lama
       if (oldPassword !== currentPassword) {
