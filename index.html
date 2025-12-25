@@ -543,7 +543,35 @@
       URL.revokeObjectURL(url);
       // showAlert may not be available on login page
     }
+
+    function importLocalStorageFromFile(event){
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      if (!confirm('Mengimpor akan menimpa data localStorage saat ini. Lanjutkan?')) { event.target.value=''; return; }
+      const reader = new FileReader();
+      reader.onload = function(ev){
+        try {
+          const data = JSON.parse(ev.target.result);
+          // make backup automatically
+          try {
+            const backup = {};
+            for (let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); backup[k]=localStorage.getItem(k); }
+            localStorage.setItem('localStorage_backup_before_import_'+Date.now(), JSON.stringify(backup));
+          } catch(e){/* ignore */}
+          Object.keys(data).forEach(k => localStorage.setItem(k, data[k]));
+          alert('Data berhasil diimpor. Muat ulang halaman untuk melihat perubahan.');
+        } catch(err){
+          alert('Gagal mengimpor: ' + err.message);
+        }
+      };
+      reader.readAsText(file);
+      event.target.value='';
+    }
   </script>
-  <button id="exportBtn" class="btn btn-secondary" style="position:fixed; right:20px; bottom:20px; z-index:9999; box-shadow:0 4px 12px rgba(0,0,0,0.15);" onclick="exportLocalStorage()">⬇️ Export Data</button>
+  <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importLocalStorageFromFile(event)">
+  <div style="position:fixed; right:20px; bottom:20px; z-index:9999; display:flex; flex-direction:column; gap:10px;">
+    <button id="importBtn" class="btn btn-primary" style="box-shadow:0 4px 12px rgba(0,0,0,0.15);" onclick="document.getElementById('importFile').click()">⬆️ Import Data</button>
+    <button id="exportBtn" class="btn btn-secondary" style="box-shadow:0 4px 12px rgba(0,0,0,0.15);" onclick="exportLocalStorage()">⬇️ Export Data</button>
+  </div>
 </body>
 </html>
