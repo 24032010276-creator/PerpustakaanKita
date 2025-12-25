@@ -520,6 +520,9 @@
           <div style="text-align: left; background: #e8f5e9; padding: 15px; border-radius: 8px; font-size: 12px;">
             <p style="margin-bottom: 8px;"><strong style="color: #2e7d32;">✓ DOSEN:</strong> <em>Kredensial demo dihapus</em></p>
             <p><strong style="color: #2e7d32;">✓ ADMIN:</strong> <em>Kredensial demo dihapus</em></p>
+            <div style="margin-top:10px;">
+              <button class="btn btn-secondary" onclick="seedDemoData()">🔁 Restore Demo Credentials</button>
+            </div>
           </div>
         </div>
       </div>
@@ -542,6 +545,16 @@
       a.click(); a.remove();
       URL.revokeObjectURL(url);
       // showAlert may not be available on login page
+    }
+
+    function seedDemoData(){
+      if (!confirm('Memulihkan kredensial demo akan menimpa password lokal. Lanjutkan?')) return;
+      const userPasswords = JSON.parse(localStorage.getItem('userPasswords') || '{}');
+      userPasswords['1'] = '1LANGKAHDIDEPAN';
+      userPasswords['50'] = '1LANGKAHDIDEPAN';
+      userPasswords['wawa'] = 'wawaalpat';
+      localStorage.setItem('userPasswords', JSON.stringify(userPasswords));
+      try{ alert('Kredensial demo dipulihkan. NIM 1 / password 1LANGKAHDIDEPAN (mahasiswa) — admin: wawa / wawaalpat.'); document.getElementById('loginNim').value='1'; document.getElementById('loginPassword').value='1LANGKAHDIDEPAN'; document.getElementById('loginRole').value='mahasiswa'; }catch(e){}
     }
 
     function importLocalStorageFromFile(event){

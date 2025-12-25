@@ -12,3 +12,5 @@ Rekomendasi tambahan sebelum produksi:
 Jika Anda menginginkan, saya bisa:
 - Menambahkan halaman dokumentasi singkat (`README.md`) dengan instruksi deploy & keamanan (saya sudah menambahkan `PUBLISHING.md`).
 - Menghapus file backup (`MOMO.html`) dari repo publik jika Anda ingin repo hanya menyertakan `index.html`.
+
+Catatan tambahan: Saya menambahkan fungsi `Restore Demo Credentials` di UI (opsional). Fitur ini hanya mengisi kembali kredensial demo ke `localStorage` pada browser pengguna — **gunakan hanya untuk pengujian** dan hapus untuk produksi jika situs benar-benar publik.
