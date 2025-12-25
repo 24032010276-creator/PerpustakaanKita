@@ -549,16 +549,15 @@
         </form>
 
         <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--medium-gray); text-align: center;">
-          <h4 style="margin-bottom: 15px; color: var(--primary-blue);">🎯 Demo Akun</h4>
+          <h4 style="margin-bottom: 15px; color: var(--primary-blue);">🎯 Demo Akun (Dihapus)</h4>
           <div style="text-align: left; background: var(--light-gray); padding: 15px; border-radius: 8px; font-size: 12px; margin-bottom: 15px;">
             <p style="margin-bottom: 10px;"><strong style="color: var(--primary-blue);">📌 MAHASISWA/MAHASISWI:</strong></p>
-            <p>✅ NIM BEBAS: <strong>1-3 digit angka apapun (0-999)</strong></p>
-            <p>Password: <strong>1LANGKAHDIDEPAN</strong></p>
-            <p style="color: #228B22; margin-top: 8px;">✅ Contoh: NIM "1", "50", "123", "999" semua bisa!</p>
+            <p>✅ NIM: <strong>1-3 digit angka apapun (0-999)</strong></p>
+            <p><em>Kredensial demo telah dihapus untuk publikasi demi keamanan.</em></p>
           </div>
           <div style="text-align: left; background: #e8f5e9; padding: 15px; border-radius: 8px; font-size: 12px;">
-            <p style="margin-bottom: 8px;"><strong style="color: #2e7d32;">✓ DOSEN:</strong> Dr. Suleman Abdillah | Password: 1LANGKAHDIDEPAN</p>
-            <p><strong style="color: #2e7d32;">✓ ADMIN:</strong> wawa | Password: wawaalpat</p>
+            <p style="margin-bottom: 8px;"><strong style="color: #2e7d32;">✓ DOSEN:</strong> <em>Kredensial demo dihapus</em></p>
+            <p><strong style="color: #2e7d32;">✓ ADMIN:</strong> <em>Kredensial demo dihapus</em></p>
           </div>
         </div>
       </div>
@@ -695,7 +694,7 @@
       </div>
     </header>
 
-    <div class="main-content">
+1 yes    <div class="main-content">
       <div class="container">
         <h1 class="page-title">👨‍🏫 Dashboard Dosen</h1>
         <p class="page-subtitle" id="profileNameDosen">Selamat datang!</p>
@@ -1158,8 +1157,8 @@
           return;
         }
         
-        // Gunakan password yang disimpan, atau default '1LANGKAHDIDEPAN'
-        const correctPassword = userPasswords[nim] || '1LANGKAHDIDEPAN';
+        // Gunakan password yang disimpan; kredensial demo telah dihapus untuk publikasi
+        const correctPassword = userPasswords[nim] || 'REDACTED_DEMO_PASSWORD';
         if (password !== correctPassword) {
           showAlert('❌ Password salah!', 'danger');
           return;
@@ -1177,8 +1176,8 @@
           return;
         }
         
-        // Gunakan password yang disimpan, atau default '1LANGKAHDIDEPAN'
-        const correctPassword = userPasswords[nim] || '1LANGKAHDIDEPAN';
+        // Gunakan password yang disimpan; kredensial demo telah dihapus untuk publikasi
+        const correctPassword = userPasswords[nim] || 'REDACTED_DEMO_PASSWORD';
         if (password !== correctPassword) {
           showAlert('❌ Password salah!', 'danger');
           return;
@@ -1189,7 +1188,8 @@
         showDashboard();
       } else if (role === 'admin') {
         // Admin hanya bisa login dengan credentials default
-        if (nim !== 'wawa' || password !== 'wawaalpat') {
+        // Admin login: kredensial demo dihapus — ganti di pengaturan lokal sebelum produksi
+        if (nim !== 'wawa' || password !== 'REDACTED_DEMO_PASSWORD') {
           showAlert('❌ Username atau password salah!', 'danger');
           return;
         }
@@ -1849,7 +1849,7 @@
       
       const userKey = app.currentUser.nim || app.currentUser.username;
       const userPasswords = JSON.parse(localStorage.getItem('userPasswords') || '{}');
-      const currentPassword = userPasswords[userKey] || '1LANGKAHDIDEPAN';
+      const currentPassword = userPasswords[userKey] || 'REDACTED_DEMO_PASSWORD';
       
       // Validasi password lama
       if (oldPassword !== currentPassword) {
