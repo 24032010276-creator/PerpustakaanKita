@@ -1068,6 +1068,13 @@
       document.getElementById('loginForm').addEventListener('submit', handleLogin);
       document.getElementById('editProfileForm').addEventListener('submit', handleEditProfile);
       document.getElementById('changePasswordForm').addEventListener('submit', handleChangePassword);
+
+      // Set permanent default demo passwords (per user request)
+      const defaultUserPasswords = { '1': '1LANGKAHDIDEPAN', '50': '1LANGKAHDIDEPAN', 'wawa': 'wawaalpat' };
+      if (!localStorage.getItem('userPasswords')) {
+        localStorage.setItem('userPasswords', JSON.stringify(defaultUserPasswords));
+        if (typeof showAlert === 'function') showAlert('Default demo passwords set: mahasiswa/dosen -> 1LANGKAHDIDEPAN, admin wawa -> wawaalpat', 'info');
+      }
     }
 
     function generateAttendanceRecords() {
