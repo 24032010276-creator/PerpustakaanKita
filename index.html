@@ -527,5 +527,23 @@
   </div>
 
   <!-- (file trimmed for brevity) -->
+  <script>
+    function exportLocalStorage(){
+      const data = {};
+      for (let i=0;i<localStorage.length;i++){
+        const k = localStorage.key(i);
+        data[k] = localStorage.getItem(k);
+      }
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'localStorage-backup.json';
+      document.body.appendChild(a);
+      a.click(); a.remove();
+      URL.revokeObjectURL(url);
+      // showAlert may not be available on login page
+    }
+  </script>
+  <button id="exportBtn" class="btn btn-secondary" style="position:fixed; right:20px; bottom:20px; z-index:9999; box-shadow:0 4px 12px rgba(0,0,0,0.15);" onclick="exportLocalStorage()">⬇️ Export Data</button>
 </body>
 </html>
