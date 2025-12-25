@@ -1,0 +1,17 @@
+# Common ignores
+node_modules/
+.vscode/
+.DS_Store
+Thumbs.db
+.env
+*.log
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Local build
+dist/
+build/

@@ -1,0 +1,1888 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perpustakaan Kita - UNESA</title>
+  <style>
+    :root {
+      --primary-blue: #0056a6;
+      --secondary-blue: #1a73e8;
+      --light-blue: #e3f2fd;
+      --dark-blue: #003d7a;
+      --accent-yellow: #ffc107;
+      --accent-orange: #ff9800;
+      --white: #ffffff;
+      --light-gray: #f5f5f5;
+      --medium-gray: #e0e0e0;
+      --dark-gray: #757575;
+      --text-dark: #212121;
+      --shadow: rgba(0, 0, 0, 0.1);
+      --success-green: #4caf50;
+      --error-red: #f44336;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--light-blue) 0%, var(--white) 100%);
+      color: var(--text-dark);
+      line-height: 1.6;
+      min-height: 100vh;
+      background-attachment: fixed;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    header {
+      background: linear-gradient(to right, var(--primary-blue), var(--dark-blue));
+      box-shadow: 0 4px 20px rgba(0, 86, 166, 0.3);
+      padding: 12px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 4px solid var(--accent-yellow);
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      text-decoration: none;
+      color: white;
+    }
+
+    .logo > div:first-child {
+      background-color: var(--white);
+      color: var(--primary-blue);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      border: 3px solid var(--accent-yellow);
+    }
+
+    .logo-text h1 {
+      font-size: 26px;
+      color: var(--white);
+      font-weight: 700;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    .profile-section {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      position: relative;
+    }
+
+    .profile-avatar {
+      width: 45px;
+      height: 45px;
+      background: var(--white);
+      color: var(--primary-blue);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 18px;
+      cursor: pointer;
+      border: 2px solid var(--accent-yellow);
+      transition: transform 0.3s;
+    }
+
+    .profile-avatar:hover {
+      transform: scale(1.1);
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 50px;
+      right: 0;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      display: none;
+      flex-direction: column;
+      min-width: 150px;
+    }
+
+    .dropdown-menu.show {
+      display: flex;
+    }
+
+    .dropdown-menu a,
+    .dropdown-menu button {
+      padding: 10px 15px;
+      text-decoration: none;
+      color: var(--text-dark);
+      border: none;
+      background: none;
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.2s;
+    }
+
+    .dropdown-menu a:hover,
+    .dropdown-menu button:hover {
+      background: var(--light-gray);
+    }
+
+    .main-content {
+      padding: 30px 0;
+    }
+
+    .page-title {
+      color: var(--primary-blue);
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .page-subtitle {
+      color: var(--dark-gray);
+      margin-bottom: 30px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      margin-bottom: 20px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-header {
+      background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+      color: white;
+      padding: 20px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-body {
+      padding: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--primary-blue);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid var(--medium-gray);
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      transition: border-color 0.3s;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 3px rgba(0, 86, 166, 0.1);
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 86, 166, 0.4);
+    }
+
+    .btn-secondary {
+      background: var(--light-gray);
+      color: var(--text-dark);
+    }
+
+    .btn-secondary:hover {
+      background: var(--medium-gray);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 12px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .modal-header {
+      background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h2 {
+      font-size: 20px;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    .modal-body {
+      padding: 20px;
+    }
+
+    .book-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .book-card {
+      background: white;
+      border-radius: 8px;
+      border: 2px solid var(--medium-gray);
+      padding: 15px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .book-card:hover {
+      border-color: var(--primary-blue);
+      box-shadow: 0 4px 15px rgba(0, 86, 166, 0.2);
+      transform: translateY(-3px);
+    }
+
+    .book-card.borrowed {
+      opacity: 0.6;
+    }
+
+    .book-title {
+      font-weight: 600;
+      color: var(--primary-blue);
+      margin-bottom: 8px;
+      min-height: 40px;
+    }
+
+    .book-author {
+      font-size: 12px;
+      color: var(--dark-gray);
+      margin-bottom: 10px;
+    }
+
+    .book-status {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    .book-status.available {
+      background: #c8e6c9;
+      color: #2e7d32;
+    }
+
+    .book-status.borrowed {
+      background: #ffccbc;
+      color: #d84315;
+    }
+
+    .search-box {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .search-box input {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .category-tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .category-tab {
+      padding: 8px 16px;
+      background: var(--light-gray);
+      border: 2px solid var(--medium-gray);
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .category-tab.active {
+      background: var(--primary-blue);
+      color: white;
+      border-color: var(--primary-blue);
+    }
+
+    .avatar-selector {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .avatar-option {
+      width: 50px;
+      height: 50px;
+      border: 3px solid var(--medium-gray);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .avatar-option:hover {
+      border-color: var(--primary-blue);
+      transform: scale(1.1);
+    }
+
+    .avatar-option.selected {
+      border-color: var(--primary-blue);
+      background: var(--light-blue);
+      transform: scale(1.15);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    table th {
+      background: var(--light-gray);
+      padding: 12px;
+      text-align: left;
+      font-weight: 600;
+      color: var(--primary-blue);
+      border-bottom: 2px solid var(--medium-gray);
+    }
+
+    table td {
+      padding: 12px;
+      border-bottom: 1px solid var(--medium-gray);
+    }
+
+    .alert {
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    .alert.success {
+      background: #c8e6c9;
+      color: #2e7d32;
+      border-left: 4px solid #4caf50;
+    }
+
+    .alert.danger {
+      background: #ffcdd2;
+      color: #c62828;
+      border-left: 4px solid #f44336;
+    }
+
+    .alert.warning {
+      background: #fff9c4;
+      color: #f57f17;
+      border-left: 4px solid #fbc02d;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(-20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 768px) {
+      .header-content {
+        gap: 15px;
+      }
+
+      .page-title {
+        font-size: 20px;
+      }
+
+      .book-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      }
+
+      .category-tabs {
+        overflow-x: auto;
+        padding-bottom: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="alertContainer"></div>
+
+  <!-- LOGIN PAGE -->
+  <div id="loginPage" style="display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px;">
+    <div class="card" style="max-width: 450px; width: 100%;">
+      <div class="card-header">
+        <div style="display: flex; align-items: center; gap: 15px; width: 100%;">
+          <div style="font-size: 40px;">📚</div>
+          <div>
+            <h3 style="margin: 0; font-size: 24px;">Perpustakaan Kita</h3>
+            <small style="opacity: 0.9;">Sistem Informasi Perpustakaan UNESA</small>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="loginRole">Peran:</label>
+            <select id="loginRole" class="form-control">
+              <option value="mahasiswa">Mahasiswa</option>
+              <option value="mahasiswi">Mahasiswi</option>
+              <option value="dosen">Dosen</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="loginNim">NIM/Username:</label>
+            <input type="text" id="loginNim" class="form-control" placeholder="Masukkan NIM atau username">
+            <small style="color: var(--dark-gray); font-size: 12px; display: block; margin-top: 5px;">
+              ✅ <strong>NIM BEBAS: 1-3 digit angka apapun!</strong><br>
+              Contoh: ketik "1" atau "10" atau "100" atau "999"
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="loginPassword">Password:</label>
+            <input type="password" id="loginPassword" class="form-control" placeholder="Masukkan password">
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">Masuk</button>
+        </form>
+
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--medium-gray); text-align: center;">
+          <h4 style="margin-bottom: 15px; color: var(--primary-blue);">🎯 Demo Akun</h4>
+          <div style="text-align: left; background: var(--light-gray); padding: 15px; border-radius: 8px; font-size: 12px; margin-bottom: 15px;">
+            <p style="margin-bottom: 10px;"><strong style="color: var(--primary-blue);">📌 MAHASISWA/MAHASISWI:</strong></p>
+            <p>✅ NIM BEBAS: <strong>1-3 digit angka apapun (0-999)</strong></p>
+            <p>Password: <strong>1LANGKAHDIDEPAN</strong></p>
+            <p style="color: #228B22; margin-top: 8px;">✅ Contoh: NIM "1", "50", "123", "999" semua bisa!</p>
+          </div>
+          <div style="text-align: left; background: #e8f5e9; padding: 15px; border-radius: 8px; font-size: 12px;">
+            <p style="margin-bottom: 8px;"><strong style="color: #2e7d32;">✓ DOSEN:</strong> Dr. Suleman Abdillah | Password: 1LANGKAHDIDEPAN</p>
+            <p><strong style="color: #2e7d32;">✓ ADMIN:</strong> wawa | Password: wawaalpat</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD MAHASISWA/MAHASISWI -->
+  <div id="dashboardMahasiswa" class="hidden">
+    <header>
+      <div class="container">
+        <div class="header-content">
+          <a href="#" class="logo">
+            <div>📚</div>
+            <div class="logo-text">
+              <h1>Perpustakaan Kita</h1>
+              <small>UNESA</small>
+            </div>
+          </a>
+          <div class="profile-section">
+            <div class="profile-avatar" id="profileAvatar" onclick="toggleProfileMenu()">U</div>
+            <div class="dropdown-menu" id="profileDropdown">
+              <a href="#" onclick="openEditProfile()">✏️ Edit Profil</a>
+              <a href="#" onclick="logout()">🚪 Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="main-content">
+      <div class="container">
+        <h1 class="page-title">📚 Dashboard Mahasiswa/Mahasiswi</h1>
+        <p class="page-subtitle" id="profileName">Selamat datang!</p>
+
+        <!-- ATTENDANCE SECTION -->
+        <div class="card">
+          <div class="card-header">
+            <span style="font-size: 20px;">✔️</span>
+            <span>Absensi Hari Ini</span>
+          </div>
+          <div class="card-body">
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <button class="btn btn-primary" onclick="checkIn('checkin')">🔵 Absen Masuk</button>
+              <button class="btn btn-secondary" onclick="checkIn('checkout')">🔴 Absen Pulang</button>
+            </div>
+            <div style="margin-top: 20px;">
+              <h4 style="color: var(--primary-blue); margin-bottom: 10px;">Riwayat Absensi</h4>
+              <div style="overflow-x: auto;">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Tanggal</th>
+                      <th>Tipe</th>
+                      <th>Waktu</th>
+                    </tr>
+                  </thead>
+                  <tbody id="attendanceHistory">
+                    <tr><td colspan="3" style="text-align: center;">Memuat...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BUKU YANG DIPINJAM -->
+        <div class="card">
+          <div class="card-header">
+            <span style="font-size: 20px;">📖</span>
+            <span>Buku yang Saya Pinjam</span>
+          </div>
+          <div class="card-body">
+            <div id="borrowedBooksList">
+              <p style="text-align: center; color: #999;">Anda belum meminjam buku</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- BOOK SEARCH & BROWSE -->
+        <div class="card">
+          <div class="card-header">
+            <span style="font-size: 20px;">🔍</span>
+            <span>Cari dan Pinjam Buku</span>
+          </div>
+          <div class="card-body">
+            <div class="search-box">
+              <input type="text" id="bookSearch" class="form-control" placeholder="Cari judul atau penulis...">
+              <button class="btn btn-primary" onclick="searchBooks()">Cari</button>
+            </div>
+
+            <div>
+              <h4 style="color: var(--primary-blue); margin-bottom: 10px;">Kategori:</h4>
+              <div class="category-tabs">
+                <div class="category-tab active" onclick="filterByCategory('semua')">Semua</div>
+                <div class="category-tab" onclick="filterByCategory('Teknologi')">💻 Teknologi</div>
+                <div class="category-tab" onclick="filterByCategory('Sains')">🔬 Sains</div>
+                <div class="category-tab" onclick="filterByCategory('Sastra')">📖 Sastra</div>
+                <div class="category-tab" onclick="filterByCategory('Sejarah')">🏛️ Sejarah</div>
+                <div class="category-tab" onclick="filterByCategory('Bisnis')">💼 Bisnis</div>
+                <div class="category-tab" onclick="filterByCategory('Pendidikan')">🎓 Pendidikan</div>
+                <div class="category-tab" onclick="filterByCategory('eBook')">📥 eBook</div>
+              </div>
+            </div>
+
+            <div class="book-grid" id="bookGrid">
+              <!-- Books akan ditampilkan di sini -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD DOSEN -->
+  <div id="dashboardDosen" class="hidden">
+    <header>
+      <div class="container">
+        <div class="header-content">
+          <a href="#" class="logo">
+            <div>📚</div>
+            <div class="logo-text">
+              <h1>Perpustakaan Kita</h1>
+              <small>UNESA</small>
+            </div>
+          </a>
+          <div class="profile-section">
+            <div class="profile-avatar" id="profileAvatar2" onclick="toggleProfileMenu()">D</div>
+            <div class="dropdown-menu" id="profileDropdown">
+              <a href="#" onclick="openEditProfile()">✏️ Edit Profil</a>
+              <a href="#" onclick="logout()">🚪 Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="main-content">
+      <div class="container">
+        <h1 class="page-title">👨‍🏫 Dashboard Dosen</h1>
+        <p class="page-subtitle" id="profileNameDosen">Selamat datang!</p>
+
+        <!-- BUKU YANG DIPINJAM -->
+        <div class="card">
+          <div class="card-header">
+            <span style="font-size: 20px;">📖</span>
+            <span>Buku yang Saya Pinjam</span>
+          </div>
+          <div class="card-body">
+            <div id="borrowedBooksListDosen">
+              <p style="text-align: center; color: #999;">Anda belum meminjam buku</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- BOOK SEARCH & BROWSE -->
+        <div class="card">
+          <div class="card-header">
+            <span style="font-size: 20px;">🔍</span>
+            <span>Cari dan Pinjam Buku</span>
+          </div>
+          <div class="card-body">
+            <div class="search-box">
+              <input type="text" id="bookSearchDosen" class="form-control" placeholder="Cari judul atau penulis...">
+              <button class="btn btn-primary" onclick="searchBooksDosen()">Cari</button>
+            </div>
+
+            <div>
+              <h4 style="color: var(--primary-blue); margin-bottom: 10px;">Kategori:</h4>
+              <div class="category-tabs">
+                <div class="category-tab active" onclick="filterByCategoryDosen('semua')">Semua</div>
+                <div class="category-tab" onclick="filterByCategoryDosen('Teknologi')">💻 Teknologi</div>
+                <div class="category-tab" onclick="filterByCategoryDosen('Sains')">🔬 Sains</div>
+                <div class="category-tab" onclick="filterByCategoryDosen('Sastra')">📖 Sastra</div>
+                <div class="category-tab" onclick="filterByCategoryDosen('Sejarah')">🏛️ Sejarah</div>
+                <div class="category-tab" onclick="filterByCategoryDosen('Bisnis')">💼 Bisnis</div>
+                <div class="category-tab" onclick="filterByCategoryDosen('Pendidikan')">🎓 Pendidikan</div>
+                <div class="category-tab" onclick="filterByCategoryDosen('eBook')">📥 eBook</div>
+              </div>
+            </div>
+
+            <div class="book-grid" id="bookGridDosen">
+              <!-- Books akan ditampilkan di sini -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD ADMIN -->
+  <div id="dashboardAdmin" class="hidden">
+    <header>
+      <div class="container">
+        <div class="header-content">
+          <a href="#" class="logo">
+            <div>📚</div>
+            <div class="logo-text">
+              <h1>Perpustakaan Kita</h1>
+              <small>UNESA</small>
+            </div>
+          </a>
+          <div class="profile-section">
+            <div class="profile-avatar" id="profileAvatar3" onclick="toggleProfileMenu()">A</div>
+            <div class="dropdown-menu" id="profileDropdown">
+              <a href="#" onclick="logout()">🚪 Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="main-content">
+      <div class="container">
+        <h1 class="page-title">⚙️ Dashboard Admin</h1>
+        <p class="page-subtitle">Selamat datang di panel administrasi!</p>
+
+        <div class="card">
+          <div class="card-header">
+            <span style="font-size: 20px;">📈</span>
+            <span>Statistik Sistem</span>
+          </div>
+          <div class="card-body">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+              <div style="background: var(--light-gray); padding: 20px; border-radius: 8px; text-align: center;">
+                <div style="font-size: 28px; font-weight: bold; color: var(--primary-blue);">1000</div>
+                <div style="color: var(--dark-gray); margin-top: 5px;">Total Mahasiswa</div>
+              </div>
+              <div style="background: var(--light-gray); padding: 20px; border-radius: 8px; text-align: center;">
+                <div style="font-size: 28px; font-weight: bold; color: var(--success-green);" id="totalBooks">100</div>
+                <div style="color: var(--dark-gray); margin-top: 5px;">Total Buku</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <span style="font-size: 20px;">📋</span>
+            <span>Daftar Mahasiswa</span>
+          </div>
+          <div class="card-body">
+            <button class="btn btn-primary" onclick="exportToCSV()">📥 Export ke CSV</button>
+            <div style="overflow-x: auto; margin-top: 20px;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>NIM</th>
+                    <th>Nama</th>
+                    <th>Total Absensi</th>
+                  </tr>
+                </thead>
+                <tbody id="adminStudentList">
+                  <tr><td colspan="3" style="text-align: center;">Memuat...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <span style="font-size: 20px;">📖</span>
+            <span>Manajemen Peminjaman Buku</span>
+          </div>
+          <div class="card-body">
+            <div style="margin-bottom: 15px;">
+              <input type="text" id="borrowSearch" class="form-control" placeholder="Cari nama, NIM, atau judul buku..." onkeyup="searchBorrowedBooks()">
+            </div>
+            <div style="overflow-x: auto;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>NIM/Username</th>
+                    <th>Nama</th>
+                    <th>Judul Buku</th>
+                    <th>Pengarang</th>
+                    <th>Tanggal Jatuh Tempo</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="adminBorrowedList">
+                  <tr><td colspan="7" style="text-align: center;">Memuat...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EDIT PROFILE MODAL -->
+  <div id="editProfileModal" class="modal">
+    <div class="modal-content" style="max-width: 600px;">
+      <div class="modal-header">
+        <h2>✏️ Edit Profil</h2>
+        <button class="modal-close" onclick="closeModal('editProfileModal')">×</button>
+      </div>
+      <div class="modal-body">
+        <!-- TAB BUTTONS -->
+        <div style="display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #ddd;">
+          <button type="button" class="tab-btn active" onclick="switchTab('profileTab')" style="padding: 10px 20px; border: none; background: none; cursor: pointer; color: #0056a6; border-bottom: 3px solid #0056a6;">📝 Profil</button>
+          <button type="button" class="tab-btn" onclick="switchTab('passwordTab')" style="padding: 10px 20px; border: none; background: none; cursor: pointer; color: #999;">🔒 Ganti Password</button>
+        </div>
+
+        <!-- PROFILE TAB -->
+        <div id="profileTab" class="tab-content">
+          <form id="editProfileForm">
+            <div class="form-group">
+              <label>Pilih Avatar:</label>
+              <div class="avatar-selector" id="avatarSelector">
+                <!-- Avatars akan ditampilkan di sini -->
+              </div>
+              <input type="hidden" id="selectedAvatar" value="">
+            </div>
+
+            <div class="form-group">
+              <label for="editProfileName">Nama Lengkap:</label>
+              <input type="text" id="editProfileName" class="form-control" placeholder="Masukkan nama lengkap" required>
+            </div>
+
+            <div class="form-group">
+              <label for="editProfileEmail">NIM/Email:</label>
+              <input type="text" id="editProfileEmail" class="form-control" readonly>
+            </div>
+
+            <div class="form-group" id="prodiEditField" style="display: none;">
+              <label for="editProfileProdi">Program Studi:</label>
+              <select id="editProfileProdi" class="form-control">
+                <option value="">-- Pilih Program Studi --</option>
+                <!-- FAKULTAS TEKNIK -->
+                <optgroup label="Fakultas Teknik">
+                  <option value="Teknik Informatika">Teknik Informatika</option>
+                  <option value="Teknik Komputer">Teknik Komputer</option>
+                  <option value="Teknik Sipil">Teknik Sipil</option>
+                  <option value="Teknik Mesin">Teknik Mesin</option>
+                  <option value="Teknik Elektro">Teknik Elektro</option>
+                </optgroup>
+                <!-- FAKULTAS SAINS -->
+                <optgroup label="Fakultas Sains">
+                  <option value="Biologi">Biologi</option>
+                  <option value="Fisika">Fisika</option>
+                  <option value="Kimia">Kimia</option>
+                  <option value="Matematika">Matematika</option>
+                  <option value="Teknik Lingkungan">Teknik Lingkungan</option>
+                </optgroup>
+                <!-- FAKULTAS EKONOMI -->
+                <optgroup label="Fakultas Ekonomi & Bisnis">
+                  <option value="Manajemen">Manajemen</option>
+                  <option value="Akuntansi">Akuntansi</option>
+                  <option value="Ekonomi Pembangunan">Ekonomi Pembangunan</option>
+                  <option value="D3 Akuntansi">D3 Akuntansi</option>
+                  <option value="D3 Manajemen">D3 Manajemen</option>
+                </optgroup>
+                <!-- FAKULTAS PENDIDIKAN -->
+                <optgroup label="Fakultas Ilmu Pendidikan">
+                  <option value="Pendidikan Matematika">Pendidikan Matematika</option>
+                  <option value="Manajemen Pendidikan">Manajemen Pendidikan</option>
+                  <option value="Pendidikan Bahasa Indonesia">Pendidikan Bahasa Indonesia</option>
+                  <option value="Pendidikan IPA">Pendidikan IPA</option>
+                  <option value="Pendidikan Bahasa Inggris">Pendidikan Bahasa Inggris</option>
+                  <option value="PGSD">PGSD</option>
+                </optgroup>
+                <!-- FAKULTAS HUKUM -->
+                <optgroup label="Fakultas Hukum">
+                  <option value="Ilmu Hukum">Ilmu Hukum</option>
+                </optgroup>
+                <!-- FAKULTAS SOSIAL -->
+                <optgroup label="Fakultas Ilmu Sosial & Hukum">
+                  <option value="Administrasi Publik">Administrasi Publik</option>
+                  <option value="Ilmu Pemerintahan">Ilmu Pemerintahan</option>
+                  <option value="Ilmu Komunikasi">Ilmu Komunikasi</option>
+                </optgroup>
+                <!-- FAKULTAS PERTANIAN -->
+                <optgroup label="Fakultas Pertanian">
+                  <option value="Agroteknologi">Agroteknologi</option>
+                  <option value="Agronomi">Agronomi</option>
+                  <option value="Peternakan">Peternakan</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
+              <button type="button" class="btn btn-secondary" onclick="closeModal('editProfileModal')">Batal</button>
+              <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- PASSWORD TAB -->
+        <div id="passwordTab" class="tab-content" style="display: none;">
+          <form id="changePasswordForm">
+            <div class="form-group">
+              <label for="oldPassword">Password Lama:</label>
+              <input type="password" id="oldPassword" class="form-control" placeholder="Masukkan password lama" required>
+            </div>
+
+            <div class="form-group">
+              <label for="newPassword">Password Baru:</label>
+              <input type="password" id="newPassword" class="form-control" placeholder="Masukkan password baru" required>
+            </div>
+
+            <div class="form-group">
+              <label for="confirmPassword">Konfirmasi Password Baru:</label>
+              <input type="password" id="confirmPassword" class="form-control" placeholder="Konfirmasi password baru" required>
+            </div>
+
+            <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
+              <button type="button" class="btn btn-secondary" onclick="closeModal('editProfileModal')">Batal</button>
+              <button type="submit" class="btn btn-primary">Ganti Password</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===== CONSTANTS =====
+    const AVATARS = ['👨‍💼', '👩‍💼', '👨‍🎓', '👩‍🎓', '👨‍🏫', '👩‍🏫', '🧑‍💻', '👨‍💻', '👩‍💻', '🧑‍🎨', '👨‍⚕️', '👩‍⚕️', '🧑‍🔬', '👨‍🔬', '👩‍🔬', '🧑‍🚀', '👨‍🚀', '👩‍🚀', '🧑‍⚖️', '👨‍⚖️', '👩‍⚖️', '👨‍🍳', '👩‍🍳', '👨‍🎤', '👩‍🎤', '👨‍🎬', '👩‍🎬', '👨‍✈️', '👩‍✈️', '👨‍🚂'];
+
+    const BOOKS = [
+      { title: "Clean Code", author: "Robert C. Martin", category: "Teknologi", status: "available", ebook: "https://gutenberg.org/cache/epub/2701" },
+      { title: "The Pragmatic Programmer", author: "Andrew Hunt", category: "Teknologi", status: "borrowed", ebook: "https://gutenberg.org/cache/epub/2702" },
+      { title: "Design Patterns", author: "Gang of Four", category: "Teknologi", status: "available", ebook: "https://gutenberg.org/cache/epub/1" },
+      { title: "Introduction to Algorithms", author: "CLRS", category: "Teknologi", status: "available", ebook: "https://gutenberg.org/cache/epub/2" },
+      { title: "Code Complete", author: "Steve McConnell", category: "Teknologi", status: "available", ebook: "https://gutenberg.org/cache/epub/3" },
+      { title: "The Mythical Man-Month", author: "Frederick P. Brooks", category: "Teknologi", status: "available", ebook: "https://gutenberg.org/cache/epub/4" },
+      { title: "Refactoring", author: "Martin Fowler", category: "Teknologi", status: "available", ebook: "https://gutenberg.org/cache/epub/5" },
+      { title: "Head First Design Patterns", author: "Freeman & Robson", category: "Teknologi", status: "available", ebook: "https://gutenberg.org/cache/epub/6" },
+      { title: "The Art of Computer Programming", author: "Donald Knuth", category: "Teknologi", status: "available", ebook: "https://gutenberg.org/cache/epub/7" },
+      { title: "Web Design with HTML, CSS, and JavaScript", author: "Jon Duckett", category: "Teknologi", status: "available", ebook: "https://gutenberg.org/cache/epub/8" },
+      { title: "Clean Code", author: "Robert C. Martin", category: "Teknologi", status: "available", ebook: "https://gutenberg.org/cache/epub/9" },
+      { title: "The Pragmatic Programmer", author: "Andrew Hunt", category: "Teknologi", status: "available", ebook: "https://gutenberg.org/cache/epub/10" },
+      
+      { title: "Atomic Habits", author: "James Clear", category: "Bisnis", status: "available", ebook: "https://gutenberg.org/cache/epub/11" },
+      { title: "Thinking, Fast and Slow", author: "Daniel Kahneman", category: "Bisnis", status: "available", ebook: "https://gutenberg.org/cache/epub/12" },
+      { title: "The Lean Startup", author: "Eric Ries", category: "Bisnis", status: "available", ebook: "https://gutenberg.org/cache/epub/13" },
+      { title: "Money Master the Game", author: "Tony Robbins", category: "Bisnis", status: "available", ebook: "https://gutenberg.org/cache/epub/14" },
+      { title: "Good to Great", author: "Jim Collins", category: "Bisnis", status: "available", ebook: "https://gutenberg.org/cache/epub/15" },
+      { title: "The 7 Habits of Highly Effective People", author: "Stephen Covey", category: "Bisnis", status: "available", ebook: "https://gutenberg.org/cache/epub/16" },
+      { title: "Start with Why", author: "Simon Sinek", category: "Bisnis", status: "available", ebook: "https://gutenberg.org/cache/epub/17" },
+      { title: "Blue Ocean Strategy", author: "W. Chan Kim", category: "Bisnis", status: "available", ebook: "https://gutenberg.org/cache/epub/18" },
+      { title: "Crushing It!", author: "Gary Vaynerchuk", category: "Bisnis", status: "available", ebook: "https://gutenberg.org/cache/epub/19" },
+      { title: "The Power of Now", author: "Eckhart Tolle", category: "Bisnis", status: "available", ebook: "https://gutenberg.org/cache/epub/20" },
+      
+      { title: "A Brief History of Time", author: "Stephen Hawking", category: "Sains", status: "available", ebook: "https://gutenberg.org/cache/epub/21" },
+      { title: "The Selfish Gene", author: "Richard Dawkins", category: "Sains", status: "available", ebook: "https://gutenberg.org/cache/epub/22" },
+      { title: "Cosmos", author: "Carl Sagan", category: "Sains", status: "available", ebook: "https://gutenberg.org/cache/epub/23" },
+      { title: "The Elegant Universe", author: "Brian Greene", category: "Sains", status: "available", ebook: "https://gutenberg.org/cache/epub/24" },
+      { title: "A Brief History of Nearly Everything", author: "Bill Bryson", category: "Sains", status: "available", ebook: "https://gutenberg.org/cache/epub/25" },
+      { title: "The Double Helix", author: "James Watson", category: "Sains", status: "available", ebook: "https://gutenberg.org/cache/epub/26" },
+      { title: "Silent Spring", author: "Rachel Carson", category: "Sains", status: "available", ebook: "https://gutenberg.org/cache/epub/27" },
+      { title: "The Structure of Scientific Revolutions", author: "Thomas Kuhn", category: "Sains", status: "available", ebook: "https://gutenberg.org/cache/epub/28" },
+      { title: "Pale Blue Dot", author: "Carl Sagan", category: "Sains", status: "available", ebook: "https://gutenberg.org/cache/epub/29" },
+      { title: "The Grand Design", author: "Stephen Hawking", category: "Sains", status: "available", ebook: "https://gutenberg.org/cache/epub/30" },
+      
+      { title: "1984", author: "George Orwell", category: "Sastra", status: "available", ebook: "https://gutenberg.org/cache/epub/31" },
+      { title: "To Kill a Mockingbird", author: "Harper Lee", category: "Sastra", status: "available", ebook: "https://gutenberg.org/cache/epub/32" },
+      { title: "Laskar Pelangi", author: "Andrea Hirata", category: "Sastra", status: "available", ebook: "https://gutenberg.org/cache/epub/33" },
+      { title: "The Great Gatsby", author: "F. Scott Fitzgerald", category: "Sastra", status: "available", ebook: "https://gutenberg.org/cache/epub/34" },
+      { title: "Pride and Prejudice", author: "Jane Austen", category: "Sastra", status: "available", ebook: "https://gutenberg.org/cache/epub/35" },
+      { title: "Wuthering Heights", author: "Emily Brontë", category: "Sastra", status: "available", ebook: "https://gutenberg.org/cache/epub/36" },
+      { title: "Jane Eyre", author: "Charlotte Brontë", category: "Sastra", status: "available", ebook: "https://gutenberg.org/cache/epub/37" },
+      { title: "The Catcher in the Rye", author: "J.D. Salinger", category: "Sastra", status: "available", ebook: "https://gutenberg.org/cache/epub/38" },
+      { title: "Moby Dick", author: "Herman Melville", category: "Sastra", status: "available", ebook: "https://gutenberg.org/cache/epub/39" },
+      { title: "Anna Karenina", author: "Leo Tolstoy", category: "Sastra", status: "available", ebook: "https://gutenberg.org/cache/epub/40" },
+      
+      { title: "Sapiens", author: "Yuval Noah Harari", category: "Sejarah", status: "available", ebook: "https://gutenberg.org/cache/epub/41" },
+      { title: "Homo Deus", author: "Yuval Noah Harari", category: "Sejarah", status: "available", ebook: "https://gutenberg.org/cache/epub/42" },
+      { title: "The Art of War", author: "Sun Tzu", category: "Sejarah", status: "available", ebook: "https://gutenberg.org/cache/epub/43" },
+      { title: "A History of Ancient Rome", author: "Mary Beard", category: "Sejarah", status: "available", ebook: "https://gutenberg.org/cache/epub/44" },
+      { title: "The Fall of the Roman Empire", author: "Edward Gibbon", category: "Sejarah", status: "available", ebook: "https://gutenberg.org/cache/epub/45" },
+      { title: "1776", author: "David McCullough", category: "Sejarah", status: "available", ebook: "https://gutenberg.org/cache/epub/46" },
+      { title: "The Silk Roads", author: "Peter Frankopan", category: "Sejarah", status: "available", ebook: "https://gutenberg.org/cache/epub/47" },
+      { title: "Guns, Germs, and Steel", author: "Jared Diamond", category: "Sejarah", status: "available", ebook: "https://gutenberg.org/cache/epub/48" },
+      { title: "The Crusades", author: "Jonathan Phillips", category: "Sejarah", status: "available", ebook: "https://gutenberg.org/cache/epub/49" },
+      { title: "Napoleon", author: "Andrew Roberts", category: "Sejarah", status: "available", ebook: "https://gutenberg.org/cache/epub/50" },
+      
+      { title: "Filosofi Teras", author: "Henry Manela", category: "Pendidikan", status: "available", ebook: "https://gutenberg.org/cache/epub/51" },
+      { title: "Metode Penelitian", author: "Sugiyono", category: "Pendidikan", status: "available", ebook: "https://gutenberg.org/cache/epub/52" },
+      { title: "Pedagogi Kritis", author: "Paulo Freire", category: "Pendidikan", status: "available", ebook: "https://gutenberg.org/cache/epub/53" },
+      { title: "The Art of Teaching", author: "William Ayers", category: "Pendidikan", status: "available", ebook: "https://gutenberg.org/cache/epub/54" },
+      { title: "Education and the Good Life", author: "Bertrand Russell", category: "Pendidikan", status: "available", ebook: "https://gutenberg.org/cache/epub/55" },
+      { title: "Mindset", author: "Carol S. Dweck", category: "Pendidikan", status: "available", ebook: "https://gutenberg.org/cache/epub/56" },
+      { title: "Deep Work", author: "Cal Newport", category: "Pendidikan", status: "available", ebook: "https://gutenberg.org/cache/epub/57" },
+      { title: "The Learning Habit", author: "Bharat Bhushal", category: "Pendidikan", status: "available", ebook: "https://gutenberg.org/cache/epub/58" },
+      { title: "How to Learn Anything", author: "Josh Waitzkin", category: "Pendidikan", status: "available", ebook: "https://gutenberg.org/cache/epub/59" },
+      { title: "Kesusasteraan Indonesia Lama", author: "A. Teeuw", category: "Sastra", status: "available", ebook: "https://gutenberg.org/cache/epub/60" }
+    ];
+
+    // ===== APP STATE =====
+    let app = {
+      currentUser: null,
+      books: BOOKS,
+      filteredBooks: BOOKS,
+      currentCategory: 'semua'
+    };
+
+    // ===== INITIALIZATION =====
+    function initializeApp() {
+      generateAttendanceRecords();
+      generateAvatarSelector();
+      document.getElementById('loginForm').addEventListener('submit', handleLogin);
+      document.getElementById('editProfileForm').addEventListener('submit', handleEditProfile);
+      document.getElementById('changePasswordForm').addEventListener('submit', handleChangePassword);
+    }
+
+    function generateAttendanceRecords() {
+      let records = JSON.parse(localStorage.getItem('attendanceRecords') || '[]');
+      if (records.length < 2000) {
+        records = [];
+        const namesL = ['Ahmad', 'Budi', 'Randi', 'Andi', 'Doni', 'Eka', 'Fajar', 'Gandi', 'Hendra', 'Indra', 'Joko', 'Krispian', 'Luthfi', 'Marko', 'Nandang', 'Oka', 'Paman', 'Qolbi', 'Rahmat', 'Sadao', 'Taufik', 'Ujang', 'Vicky', 'Wahyu', 'Xander', 'Yanto', 'Zaki', 'Arman', 'Bambang', 'Cahyo'];
+        const namesP = ['Siti', 'Ani', 'Bela', 'Citra', 'Dina', 'Eka', 'Fina', 'Gina', 'Hana', 'Ina', 'Jeni', 'Karna', 'Lina', 'Maya', 'Nina', 'Opi', 'Putri', 'Qori', 'Rini', 'Sasha', 'Tina', 'Utin', 'Vina', 'Wika', 'Xena', 'Yuliana', 'Zakia', 'Arini', 'Bella', 'Clara'];
+        const lastNames = ['Pratama', 'Santoso', 'Wijaya', 'Kusuma', 'Handoko', 'Rahmadi', 'Sujono', 'Tanjung', 'Utama', 'Vianto', 'Warsito', 'Ximena', 'Yusuf', 'Zahra', 'Aditya', 'Bintang', 'Cahaya', 'Dwi'];
+
+        const allStudents = [];
+        for (let i = 0; i < 1000; i++) {
+          const nim = String(i);
+          const isWoman = Math.random() < 0.5;
+          const firstName = isWoman ? namesP[Math.floor(Math.random() * namesP.length)] : namesL[Math.floor(Math.random() * namesL.length)];
+          const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+          allStudents.push({ nim, nama: `${firstName} ${lastName}` });
+        }
+
+        let currentDate = new Date();
+        currentDate.setDate(currentDate.getDate() - 365);
+
+        for (let i = 0; i < 2000; i++) {
+          const student = allStudents[Math.floor(Math.random() * allStudents.length)];
+          const checkInTime = new Date(currentDate);
+          checkInTime.setHours(Math.floor(Math.random() * 6) + 7, Math.floor(Math.random() * 60), 0);
+
+          records.push({
+            id: Date.now() + i,
+            userId: student.nim,
+            userName: student.nama,
+            type: 'checkin',
+            time: checkInTime.toLocaleTimeString('id-ID'),
+            date: checkInTime.toLocaleDateString('id-ID'),
+            timestamp: checkInTime.toISOString()
+          });
+
+          if (Math.random() < 0.8) {
+            const checkOutTime = new Date(checkInTime);
+            checkOutTime.setHours(checkOutTime.getHours() + Math.floor(Math.random() * 4) + 2, Math.floor(Math.random() * 60), 0);
+            records.push({
+              id: Date.now() + i + 0.5,
+              userId: student.nim,
+              userName: student.nama,
+              type: 'checkout',
+              time: checkOutTime.toLocaleTimeString('id-ID'),
+              date: checkOutTime.toLocaleDateString('id-ID'),
+              timestamp: checkOutTime.toISOString()
+            });
+          }
+
+          if (i % 20 === 0) {
+            currentDate.setDate(currentDate.getDate() + 1);
+          }
+        }
+
+        localStorage.setItem('attendanceRecords', JSON.stringify(records));
+      }
+    }
+
+    function generateAvatarSelector() {
+      const selector = document.getElementById('avatarSelector');
+      selector.innerHTML = '';
+      AVATARS.forEach((avatar, index) => {
+        const option = document.createElement('div');
+        option.className = 'avatar-option';
+        option.textContent = avatar;
+        option.onclick = () => selectAvatar(avatar, option);
+        selector.appendChild(option);
+      });
+    }
+
+    function selectAvatar(avatar, element) {
+      document.querySelectorAll('.avatar-option').forEach(el => el.classList.remove('selected'));
+      element.classList.add('selected');
+      document.getElementById('selectedAvatar').value = avatar;
+    }
+
+    // ===== LOGIN =====
+    function handleLogin(e) {
+      e.preventDefault();
+      const role = document.getElementById('loginRole').value;
+      const nim = document.getElementById('loginNim').value.trim();
+      const password = document.getElementById('loginPassword').value;
+      const userPasswords = JSON.parse(localStorage.getItem('userPasswords') || '{}');
+
+      if (role === 'mahasiswa' || role === 'mahasiswi') {
+        if (!/^\d{1,3}$/.test(nim)) {
+          showAlert('❌ NIM harus angka saja! (1-3 digit)', 'danger');
+          return;
+        }
+        
+        // Gunakan password yang disimpan, atau default '1LANGKAHDIDEPAN'
+        const correctPassword = userPasswords[nim] || '1LANGKAHDIDEPAN';
+        if (password !== correctPassword) {
+          showAlert('❌ Password salah!', 'danger');
+          return;
+        }
+
+        const records = JSON.parse(localStorage.getItem('attendanceRecords') || '[]');
+        const studentName = records.find(r => r.userId === nim)?.userName || `Student ${nim}`;
+
+        app.currentUser = { nim, nama: studentName, role, username: nim };
+        localStorage.setItem('currentUser', JSON.stringify(app.currentUser));
+        showDashboard();
+      } else if (role === 'dosen') {
+        if (!nim) {
+          showAlert('❌ Username tidak boleh kosong!', 'danger');
+          return;
+        }
+        
+        // Gunakan password yang disimpan, atau default '1LANGKAHDIDEPAN'
+        const correctPassword = userPasswords[nim] || '1LANGKAHDIDEPAN';
+        if (password !== correctPassword) {
+          showAlert('❌ Password salah!', 'danger');
+          return;
+        }
+        
+        app.currentUser = { nama: nim, role: 'dosen', username: nim };
+        localStorage.setItem('currentUser', JSON.stringify(app.currentUser));
+        showDashboard();
+      } else if (role === 'admin') {
+        // Admin hanya bisa login dengan credentials default
+        if (nim !== 'wawa' || password !== 'wawaalpat') {
+          showAlert('❌ Username atau password salah!', 'danger');
+          return;
+        }
+        app.currentUser = { username: nim, role: 'admin' };
+        localStorage.setItem('currentUser', JSON.stringify(app.currentUser));
+        showDashboard();
+      }
+    }
+
+    function showDashboard() {
+      document.getElementById('loginPage').style.display = 'none';
+      document.getElementById('dashboardMahasiswa').classList.add('hidden');
+      document.getElementById('dashboardDosen').classList.add('hidden');
+      document.getElementById('dashboardAdmin').classList.add('hidden');
+
+      if (app.currentUser.role === 'mahasiswa' || app.currentUser.role === 'mahasiswi') {
+        document.getElementById('dashboardMahasiswa').classList.remove('hidden');
+        updateProfileDisplay();
+        loadMahasiswaData();
+        loadBooks();
+        loadBorrowedBooks();
+      } else if (app.currentUser.role === 'dosen') {
+        document.getElementById('dashboardDosen').classList.remove('hidden');
+        updateProfileDisplayDosen();
+        loadBooksDosen();
+        loadBorrowedBooks();
+      } else if (app.currentUser.role === 'admin') {
+        document.getElementById('dashboardAdmin').classList.remove('hidden');
+        // Load books first for admin
+        const stored = JSON.parse(localStorage.getItem('libraryBooks') || 'null');
+        if (stored && Array.isArray(stored) && stored.length) {
+          app.books = stored;
+        } else {
+          initializeSampleBorrowedBooks();
+        }
+        loadAdminData();
+      }
+    }
+
+    function updateProfileDisplay() {
+      const name = app.currentUser.nama;
+      document.getElementById('profileName').textContent = `Selamat datang, ${name}!`;
+      const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+      document.getElementById('profileAvatar').textContent = initials;
+    }
+
+    // ===== ATTENDANCE =====
+    function checkIn(type) {
+      const now = new Date();
+      const record = {
+        id: Date.now(),
+        userId: app.currentUser.nim,
+        userName: app.currentUser.nama,
+        type: type,
+        time: now.toLocaleTimeString('id-ID'),
+        date: now.toLocaleDateString('id-ID'),
+        timestamp: now.toISOString()
+      };
+
+      let records = JSON.parse(localStorage.getItem('attendanceRecords') || '[]');
+      records.push(record);
+      localStorage.setItem('attendanceRecords', JSON.stringify(records));
+
+      showAlert(`${type === 'checkin' ? 'Absen Masuk' : 'Absen Pulang'} berhasil!`, 'success');
+      loadMahasiswaData();
+    }
+
+    function loadMahasiswaData() {
+      const records = JSON.parse(localStorage.getItem('attendanceRecords') || '[]');
+      const userRecords = records.filter(r => r.userId === app.currentUser.nim).slice(-10);
+      
+      const tbody = document.getElementById('attendanceHistory');
+      tbody.innerHTML = userRecords.length ? userRecords.map(r => `
+        <tr>
+          <td>${r.date}</td>
+          <td>${r.type === 'checkin' ? '🔵 Masuk' : '🔴 Pulang'}</td>
+          <td>${r.time}</td>
+        </tr>
+      `).join('') : '<tr><td colspan="3" style="text-align: center;">Belum ada data absensi</td></tr>';
+    }
+
+    function loadDosenData() {
+      const records = JSON.parse(localStorage.getItem('attendanceRecords') || '[]');
+      const studentStats = {};
+
+      records.forEach(r => {
+        if (!studentStats[r.userId]) {
+          studentStats[r.userId] = { userId: r.userId, userName: r.userName, count: 0 };
+        }
+        if (r.type === 'checkin') {
+          studentStats[r.userId].count++;
+        }
+      });
+
+      const tbody = document.getElementById('dosenAttendanceBody');
+      const data = Object.values(studentStats).sort((a, b) => b.count - a.count).slice(0, 20);
+      tbody.innerHTML = data.length ? data.map(s => `
+        <tr>
+          <td>${s.userId}</td>
+          <td>${s.userName}</td>
+          <td>${s.count}</td>
+        </tr>
+      `).join('') : '<tr><td colspan="3" style="text-align: center;">Tidak ada data</td></tr>';
+    }
+
+    // ===== DOSEN BOOKS FUNCTIONS =====
+    function updateProfileDisplayDosen() {
+      const name = app.currentUser.nama;
+      document.getElementById('profileNameDosen').textContent = `Selamat datang, ${name}!`;
+      const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+      document.getElementById('profileAvatar2').textContent = initials;
+    }
+
+    function loadBooksDosen() {
+      const stored = JSON.parse(localStorage.getItem('libraryBooks') || 'null');
+      if (stored && Array.isArray(stored) && stored.length) {
+        app.books = stored;
+      } else {
+        // Initialize sample borrowed books data
+        initializeSampleBorrowedBooks();
+      }
+      app.filteredBooks = app.books;
+      renderBooksDosen();
+    }
+
+    function renderBooksDosen() {
+      const grid = document.getElementById('bookGridDosen');
+      const currentUserIdentifier = app.currentUser ? (app.currentUser.username || app.currentUser.nama || '').toString().trim() : '';
+      
+      grid.innerHTML = app.filteredBooks.map((book) => {
+        // Find the actual index of this book in app.books array
+        const actualIdx = app.books.indexOf(book);
+        const statusLabel = book.status === 'available' ? '✅ Tersedia' : '❌ Dipinjam';
+        const borrowedInfo = book.status === 'borrowed' && book.borrowedBy ? `<p class="book-info">Dipinjam oleh: ${book.borrowedBy}</p><p class="book-info">Jatuh tempo: ${book.dueDate || '-'}</p>` : '';
+        let action = '';
+        let downloadBtn = '';
+        if (book.ebook) {
+          downloadBtn = `<button class="btn btn-info" onclick="window.open('${book.ebook}', '_blank')" style="width: 100%; font-size: 12px; padding: 8px; cursor: pointer; background-color: #17a2b8; color: white; border: none; margin-bottom: 5px; border-radius: 4px;">📥 Download eBook</button>`;
+        }
+        if (book.status === 'available') {
+          action = `<button class="btn btn-primary" onclick="borrowBook('${actualIdx}')" style="width: 100%; font-size: 12px; padding: 8px; cursor: pointer;">Pinjam</button>`;
+        } else if (book.status === 'borrowed' && currentUserIdentifier && (book.borrowedBy || '').toString().trim() === currentUserIdentifier) {
+          action = `<button class="btn btn-secondary" onclick="returnBook('${actualIdx}')" style="width: 100%; font-size: 12px; padding: 8px; cursor: pointer;">Kembalikan</button>`;
+        }
+
+        return `
+          <div class="book-card ${book.status === 'borrowed' ? 'borrowed' : ''}">
+            <div class="book-title">${book.title}</div>
+            <div class="book-author">oleh ${book.author}</div>
+            <div class="book-status ${book.status}">${statusLabel}</div>
+            ${borrowedInfo}
+            ${downloadBtn}
+            ${action}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function searchBooksDosen() {
+      const query = document.getElementById('bookSearchDosen').value.toLowerCase();
+      app.filteredBooks = app.books.filter(b => 
+        b.title.toLowerCase().includes(query) || b.author.toLowerCase().includes(query)
+      );
+      renderBooksDosen();
+    }
+
+    function filterByCategoryDosen(category, evt) {
+      document.querySelectorAll('.category-tabs .category-tab').forEach(tab => tab.classList.remove('active'));
+      // Find and activate the clicked tab
+      const tabs = document.querySelectorAll('.category-tabs .category-tab');
+      tabs.forEach(tab => {
+        if (tab.textContent.toLowerCase().includes(category.toLowerCase()) || 
+            (category === 'semua' && tab.textContent.toLowerCase().includes('semua'))) {
+          tab.classList.add('active');
+        }
+      });
+      
+      if (category === 'semua') {
+        app.filteredBooks = app.books;
+      } else if (category === 'eBook') {
+        app.filteredBooks = app.books.filter(b => b.ebook);
+      } else {
+        app.filteredBooks = app.books.filter(b => b.category === category);
+      }
+      renderBooksDosen();
+    }
+
+    function loadAdminData() {
+      const records = JSON.parse(localStorage.getItem('attendanceRecords') || '[]');
+      const studentStats = {};
+
+      records.forEach(r => {
+        if (!studentStats[r.userId]) {
+          studentStats[r.userId] = { userId: r.userId, userName: r.userName, count: 0 };
+        }
+        if (r.type === 'checkin') {
+          studentStats[r.userId].count++;
+        }
+      });
+
+      document.getElementById('totalBooks').textContent = app.books.length;
+
+      const tbody = document.getElementById('adminStudentList');
+      const data = Object.values(studentStats).sort((a, b) => parseInt(a.userId) - parseInt(b.userId)).slice(0, 50);
+      tbody.innerHTML = data.length ? data.map(s => `
+        <tr>
+          <td>${s.userId}</td>
+          <td>${s.userName}</td>
+          <td>${s.count}</td>
+        </tr>
+      `).join('') : '<tr><td colspan="3" style="text-align: center;">Tidak ada data</td></tr>';
+      
+      // Load borrowed books data
+      loadAdminBorrowedBooks();
+    }
+
+    function loadAdminBorrowedBooks() {
+      const borrowed = [];
+      app.books.forEach((book, idx) => {
+        if (book.status === 'borrowed' && book.borrowedBy) {
+          borrowed.push({ book, idx, borrowedBy: book.borrowedBy });
+        }
+      });
+
+      const tbody = document.getElementById('adminBorrowedList');
+      if (borrowed.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 20px;">Tidak ada buku yang dipinjam</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = borrowed.map(item => {
+        const daysLeft = item.book.dueDate ? Math.ceil((new Date(item.book.dueDate.split('/').reverse().join('-')) - new Date()) / (1000 * 60 * 60 * 24)) : 0;
+        const isOverdue = daysLeft < 0;
+        const statusColor = isOverdue ? '#dc3545' : '#28a745';
+        const statusText = isOverdue ? '⚠️ TERLAMBAT' : '✓ Tepat Waktu';
+        
+        return `
+          <tr>
+            <td>${item.borrowedBy}</td>
+            <td style="font-weight: 500;">${item.borrowedBy}</td>
+            <td style="font-weight: 500;">${item.book.title}</td>
+            <td>${item.book.author}</td>
+            <td style="color: ${statusColor}; font-weight: bold;">${item.book.dueDate || '-'}</td>
+            <td style="color: ${statusColor}; font-weight: bold;">${statusText}</td>
+            <td>
+              <button class="btn btn-sm btn-success" onclick="adminReturnBook('${item.idx}')" style="padding: 5px 10px; font-size: 12px;">✓ Kembalikan</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function searchBorrowedBooks() {
+      const query = document.getElementById('borrowSearch').value.toLowerCase();
+      const borrowed = [];
+      app.books.forEach((book, idx) => {
+        if (book.status === 'borrowed' && book.borrowedBy) {
+          borrowed.push({ book, idx, borrowedBy: book.borrowedBy });
+        }
+      });
+
+      const filtered = borrowed.filter(item => 
+        item.book.title.toLowerCase().includes(query) ||
+        item.book.author.toLowerCase().includes(query) ||
+        item.borrowedBy.toLowerCase().includes(query)
+      );
+
+      const tbody = document.getElementById('adminBorrowedList');
+      if (filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 20px;">Tidak ada hasil pencarian</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(item => {
+        const daysLeft = item.book.dueDate ? Math.ceil((new Date(item.book.dueDate.split('/').reverse().join('-')) - new Date()) / (1000 * 60 * 60 * 24)) : 0;
+        const isOverdue = daysLeft < 0;
+        const statusColor = isOverdue ? '#dc3545' : '#28a745';
+        const statusText = isOverdue ? '⚠️ TERLAMBAT' : '✓ Tepat Waktu';
+        
+        return `
+          <tr>
+            <td>${item.borrowedBy}</td>
+            <td style="font-weight: 500;">${item.borrowedBy}</td>
+            <td style="font-weight: 500;">${item.book.title}</td>
+            <td>${item.book.author}</td>
+            <td style="color: ${statusColor}; font-weight: bold;">${item.book.dueDate || '-'}</td>
+            <td style="color: ${statusColor}; font-weight: bold;">${statusText}</td>
+            <td>
+              <button class="btn btn-sm btn-success" onclick="adminReturnBook('${item.idx}')" style="padding: 5px 10px; font-size: 12px;">✓ Kembalikan</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function adminReturnBook(bookIdx) {
+      const idx = parseInt(bookIdx, 10);
+      const book = app.books[idx];
+      
+      if (!book) {
+        showAlert('Buku tidak ditemukan', 'danger');
+        return;
+      }
+
+      if (book.status !== 'borrowed') {
+        showAlert('Buku bukan dalam status dipinjam', 'warning');
+        return;
+      }
+
+      const borrowerName = book.borrowedBy;
+      if (confirm(`Kembalikan buku "${book.title}" yang dipinjam oleh ${borrowerName}?`)) {
+        book.status = 'available';
+        delete book.borrowedBy;
+        delete book.borrowedDate;
+        delete book.dueDate;
+        persistBooks();
+        showAlert(`✓ Buku "${book.title}" berhasil dikembalikan oleh admin.`, 'success');
+        loadAdminBorrowedBooks();
+      }
+    }
+
+    // ===== BOOKS =====
+    function loadBooks() {
+      // Load persisted book state if present
+      const stored = JSON.parse(localStorage.getItem('libraryBooks') || 'null');
+      if (stored && Array.isArray(stored) && stored.length) {
+        app.books = stored;
+      } else {
+        // Initialize sample borrowed books data
+        initializeSampleBorrowedBooks();
+      }
+      app.filteredBooks = app.books;
+      renderBooks();
+    }
+
+    function initializeSampleBorrowedBooks() {
+      const records = JSON.parse(localStorage.getItem('attendanceRecords') || '[]');
+      const students = {};
+      records.forEach(r => {
+        if (!students[r.userId]) {
+          students[r.userId] = r.userName;
+        }
+      });
+      
+      const studentList = Object.entries(students).slice(0, 15);
+      
+      // Assign borrowers ke beberapa buku (12 buku dipinjam oleh siswa yang berbeda)
+      const borrowedIndices = [2, 5, 9, 12, 15, 18, 22, 25, 28, 31, 35, 40];
+      const daysAgo = [5, 10, 3, 7, 12, 2, 8, 1, 6, 9, 11, 4];
+      
+      borrowedIndices.forEach((idx, i) => {
+        if (app.books[idx] && studentList[i] && studentList[i].length > 0) {
+          const nim = studentList[i][0]; // Get NIM/userId from entry
+          app.books[idx].status = 'borrowed';
+          app.books[idx].borrowedBy = nim.toString();
+          
+          const borrowDate = new Date();
+          borrowDate.setDate(borrowDate.getDate() - daysAgo[i]);
+          app.books[idx].borrowedDate = borrowDate.toLocaleDateString('id-ID');
+          
+          const dueDate = new Date(borrowDate);
+          dueDate.setDate(dueDate.getDate() + 14);
+          app.books[idx].dueDate = dueDate.toLocaleDateString('id-ID');
+        }
+      });
+      
+      persistBooks();
+    }
+
+    function renderBooks() {
+      const grid = document.getElementById('bookGrid');
+      const currentUserIdentifier = app.currentUser ? (app.currentUser.nim || app.currentUser.username || '').toString().trim() : '';
+      
+      grid.innerHTML = app.filteredBooks.map((book) => {
+        // Find the actual index of this book in app.books array
+        const actualIdx = app.books.indexOf(book);
+        const statusLabel = book.status === 'available' ? '✅ Tersedia' : '❌ Dipinjam';
+        const borrowedInfo = book.status === 'borrowed' && book.borrowedBy ? `<p class="book-info">Dipinjam oleh: ${book.borrowedBy}</p><p class="book-info">Jatuh tempo: ${book.dueDate || '-'}</p>` : '';
+        let action = '';
+        let downloadBtn = '';
+        if (book.ebook) {
+          downloadBtn = `<button class="btn btn-info" onclick="window.open('${book.ebook}', '_blank')" style="width: 100%; font-size: 12px; padding: 8px; cursor: pointer; background-color: #17a2b8; color: white; border: none; margin-bottom: 5px; border-radius: 4px;">📥 Download eBook</button>`;
+        }
+        if (book.status === 'available') {
+          action = `<button class="btn btn-primary" onclick="borrowBook('${actualIdx}')" style="width: 100%; font-size: 12px; padding: 8px; cursor: pointer;">Pinjam</button>`;
+        } else if (book.status === 'borrowed' && currentUserIdentifier && (book.borrowedBy || '').toString().trim() === currentUserIdentifier) {
+          action = `<button class="btn btn-secondary" onclick="returnBook('${actualIdx}')" style="width: 100%; font-size: 12px; padding: 8px; cursor: pointer;">Kembalikan</button>`;
+        }
+
+        return `
+          <div class="book-card ${book.status === 'borrowed' ? 'borrowed' : ''}">
+            <div class="book-title">${book.title}</div>
+            <div class="book-author">oleh ${book.author}</div>
+            <div class="book-status ${book.status}">${statusLabel}</div>
+            ${borrowedInfo}
+            ${downloadBtn}
+            ${action}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function persistBooks() {
+      localStorage.setItem('libraryBooks', JSON.stringify(app.books));
+    }
+
+    function borrowBook(id) {
+      if (!app.currentUser) { showAlert('Silakan login terlebih dahulu', 'warning'); return; }
+      const i = parseInt(id, 10);
+      const book = app.books[i];
+      if (!book) { showAlert('Buku tidak ditemukan', 'danger'); return; }
+      if (book.status !== 'available') { showAlert('Buku tidak tersedia untuk dipinjam', 'warning'); return; }
+      book.status = 'borrowed';
+      book.borrowedBy = app.currentUser.nim || app.currentUser.username;
+      const now = new Date();
+      book.borrowedDate = now.toLocaleDateString('id-ID');
+      const due = new Date(now);
+      due.setDate(due.getDate() + 14);
+      book.dueDate = due.toLocaleDateString('id-ID');
+      persistBooks();
+      showAlert(`Buku "${book.title}" berhasil dipinjam! Kembalikan sebelum ${book.dueDate}`, 'success');
+      // Render the currently active view
+      if (document.getElementById('bookGridDosen').style.display !== 'none') {
+        renderBooksDosen();
+      } else {
+        renderBooks();
+      }
+      // Update borrowed books list
+      loadBorrowedBooks();
+    }
+
+    function returnBook(id) {
+      if (!app.currentUser) { showAlert('Silakan login terlebih dahulu', 'warning'); return; }
+      const i = parseInt(id, 10);
+      const book = app.books[i];
+      if (!book) { showAlert('Buku tidak ditemukan', 'danger'); return; }
+      if (book.status !== 'borrowed') { showAlert('Buku bukan dalam status dipinjam', 'warning'); return; }
+      const currentUserIdentifier = (app.currentUser.nim || app.currentUser.username || '').toString().trim();
+      if ((book.borrowedBy || '').toString().trim() !== currentUserIdentifier) { showAlert('Anda tidak meminjam buku ini', 'danger'); return; }
+      book.status = 'available';
+      delete book.borrowedBy;
+      delete book.borrowedDate;
+      delete book.dueDate;
+      persistBooks();
+      showAlert(`Buku "${book.title}" berhasil dikembalikan. Terima kasih.`, 'success');
+      // Render the currently active view
+      if (document.getElementById('bookGridDosen').style.display !== 'none') {
+        renderBooksDosen();
+      } else {
+        renderBooks();
+      }
+      // Update borrowed books list
+      loadBorrowedBooks();
+    }
+
+    function searchBooks() {
+      const query = document.getElementById('bookSearch').value.toLowerCase();
+      app.filteredBooks = app.books.filter(b => 
+        b.title.toLowerCase().includes(query) || b.author.toLowerCase().includes(query)
+      );
+      renderBooks();
+    }
+
+    function filterByCategory(category, evt) {
+      document.querySelectorAll('.category-tab').forEach(tab => tab.classList.remove('active'));
+      // Find and activate the clicked tab
+      const tabs = document.querySelectorAll('.category-tab');
+      tabs.forEach(tab => {
+        if (tab.textContent.toLowerCase().includes(category.toLowerCase()) || 
+            (category === 'semua' && tab.textContent.toLowerCase().includes('semua'))) {
+          tab.classList.add('active');
+        }
+      });
+      
+      if (category === 'semua') {
+        app.filteredBooks = app.books;
+      } else if (category === 'eBook') {
+        app.filteredBooks = app.books.filter(b => b.ebook);
+      } else {
+        app.filteredBooks = app.books.filter(b => b.category === category);
+      }
+      renderBooks();
+    }
+
+    // ===== PROFILE MODAL =====
+    function openEditProfile() {
+      document.getElementById('editProfileName').value = app.currentUser.nama;
+      document.getElementById('editProfileEmail').value = app.currentUser.nim || app.currentUser.username || app.currentUser.nama;
+
+      if (app.currentUser.role === 'mahasiswa' || app.currentUser.role === 'mahasiswi' || app.currentUser.role === 'dosen') {
+        document.getElementById('prodiEditField').style.display = 'block';
+      } else {
+        document.getElementById('prodiEditField').style.display = 'none';
+      }
+
+      document.getElementById('editProfileModal').classList.add('active');
+    }
+
+    function handleEditProfile(e) {
+      e.preventDefault();
+      const newName = document.getElementById('editProfileName').value.trim();
+      const selectedAvatar = document.getElementById('selectedAvatar').value;
+
+      if (!newName) {
+        showAlert('Nama tidak boleh kosong', 'danger');
+        return;
+      }
+
+      app.currentUser.nama = newName;
+      if (selectedAvatar) {
+        app.currentUser.avatar = selectedAvatar;
+      }
+
+      localStorage.setItem('currentUser', JSON.stringify(app.currentUser));
+      updateProfileDisplay();
+      closeModal('editProfileModal');
+      showAlert('Profil berhasil diperbarui!', 'success');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+    }
+
+    function toggleProfileMenu(evt) {
+      // Find the closest dropdown menu from the clicked avatar
+      const avatar = evt ? evt.target : event.target;
+      const clickedAvatar = avatar.closest('.profile-avatar');
+      if (!clickedAvatar) return;
+      const menu = clickedAvatar.nextElementSibling;
+      if (menu && menu.classList.contains('dropdown-menu')) {
+        menu.classList.toggle('show');
+        // Close other menus
+        document.querySelectorAll('.dropdown-menu').forEach(m => {
+          if (m !== menu) m.classList.remove('show');
+        });
+      }
+    }
+
+    // ===== UTILS =====
+    function showAlert(msg, type) {
+      const container = document.getElementById('alertContainer');
+      const alert = document.createElement('div');
+      alert.className = `alert ${type}`;
+      alert.textContent = msg;
+      container.appendChild(alert);
+      setTimeout(() => alert.remove(), 3000);
+    }
+
+    function exportToCSV() {
+      const records = JSON.parse(localStorage.getItem('attendanceRecords') || '[]');
+      const studentStats = {};
+
+      records.forEach(r => {
+        if (!studentStats[r.userId]) {
+          studentStats[r.userId] = { userId: r.userId, userName: r.userName, count: 0 };
+        }
+        if (r.type === 'checkin') {
+          studentStats[r.userId].count++;
+        }
+      });
+
+      let csv = 'NIM,Nama,Total Absensi\n';
+      Object.values(studentStats).forEach(s => {
+        csv += `${s.userId},"${s.userName}",${s.count}\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'data_absensi.csv';
+      a.click();
+    }
+
+    function logout() {
+      localStorage.removeItem('currentUser');
+      app.currentUser = null;
+      document.getElementById('loginPage').style.display = 'flex';
+      document.getElementById('dashboardMahasiswa').classList.add('hidden');
+      document.getElementById('dashboardDosen').classList.add('hidden');
+      document.getElementById('dashboardAdmin').classList.add('hidden');
+      document.getElementById('loginNim').value = '';
+      document.getElementById('loginPassword').value = '';
+    }
+
+    // ===== BORROWED BOOKS & PASSWORD =====
+    function loadBorrowedBooks() {
+      const currentUserIdentifier = app.currentUser ? (app.currentUser.nim || app.currentUser.username || '').toString().trim() : '';
+      const borrowed = app.books.filter(b => (b.borrowedBy || '').toString().trim() === currentUserIdentifier);
+      
+      const html = borrowed.length ? `
+        <div style="overflow-x: auto;">
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr style="background: #f5f5f5; border-bottom: 2px solid #ddd;">
+                <th style="padding: 10px; text-align: left;">Judul Buku</th>
+                <th style="padding: 10px; text-align: left;">Pengarang</th>
+                <th style="padding: 10px; text-align: left;">Jatuh Tempo</th>
+                <th style="padding: 10px; text-align: center;">Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${borrowed.map((book, idx) => {
+                const actualIdx = app.books.indexOf(book);
+                const daysLeft = book.dueDate ? Math.ceil((new Date(book.dueDate.split('/').reverse().join('-')) - new Date()) / (1000 * 60 * 60 * 24)) : 0;
+                const isOverdue = daysLeft < 0;
+                return `
+                  <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 10px;">${book.title}</td>
+                    <td style="padding: 10px;">${book.author}</td>
+                    <td style="padding: 10px; color: ${isOverdue ? '#dc3545' : '#28a745'}; font-weight: bold;">
+                      ${book.dueDate} ${isOverdue ? '⚠️ TERLAMBAT' : '✓'}
+                    </td>
+                    <td style="padding: 10px; text-align: center;">
+                      ${book.ebook ? `<button class="btn btn-sm" onclick="window.open('${book.ebook}', '_blank')" style="padding: 5px 8px; font-size: 11px; background-color: #17a2b8; color: white; border: none; margin-right: 5px; border-radius: 3px; cursor: pointer;">📥 eBook</button>` : ''}
+                      <button class="btn btn-sm btn-secondary" onclick="returnBook('${actualIdx}')" style="padding: 5px 10px; font-size: 12px;">Kembalikan</button>
+                    </td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+          </table>
+        </div>
+      ` : '<p style="text-align: center; color: #999;">Anda belum meminjam buku</p>';
+      
+      const container = document.getElementById('borrowedBooksList');
+      if (container) container.innerHTML = html;
+      
+      const containerDosen = document.getElementById('borrowedBooksListDosen');
+      if (containerDosen) containerDosen.innerHTML = html;
+    }
+
+    function switchTab(tabName) {
+      // Hide all tabs
+      document.getElementById('profileTab').style.display = 'none';
+      document.getElementById('passwordTab').style.display = 'none';
+      
+      // Remove active class from all buttons
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.style.color = '#999';
+        btn.style.borderBottom = 'none';
+      });
+      
+      // Show selected tab
+      document.getElementById(tabName).style.display = 'block';
+      
+      // Add active class to clicked button
+      event.target.style.color = '#0056a6';
+      event.target.style.borderBottom = '3px solid #0056a6';
+    }
+
+    function handleChangePassword(e) {
+      e.preventDefault();
+      const oldPassword = document.getElementById('oldPassword').value;
+      const newPassword = document.getElementById('newPassword').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      
+      const userKey = app.currentUser.nim || app.currentUser.username;
+      const userPasswords = JSON.parse(localStorage.getItem('userPasswords') || '{}');
+      const currentPassword = userPasswords[userKey] || '1LANGKAHDIDEPAN';
+      
+      // Validasi password lama
+      if (oldPassword !== currentPassword) {
+        showAlert('Password lama tidak sesuai', 'danger');
+        return;
+      }
+      
+      // Validasi password baru
+      if (newPassword.length < 6) {
+        showAlert('Password baru minimal 6 karakter', 'warning');
+        return;
+      }
+      
+      if (newPassword !== confirmPassword) {
+        showAlert('Konfirmasi password tidak sesuai', 'danger');
+        return;
+      }
+      
+      // Simpan password baru
+      userPasswords[userKey] = newPassword;
+      localStorage.setItem('userPasswords', JSON.stringify(userPasswords));
+      
+      showAlert('Password berhasil diubah. Silakan login kembali dengan password baru', 'success');
+      
+      // Clear form dan logout setelah 2 detik
+      document.getElementById('changePasswordForm').reset();
+      setTimeout(() => {
+        logout();
+      }, 2000);
+    }
+
+    // Initialize on load
+    window.addEventListener('load', initializeApp);
+  </script>
+</body>
+</html>
